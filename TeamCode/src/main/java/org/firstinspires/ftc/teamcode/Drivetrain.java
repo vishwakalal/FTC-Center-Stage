@@ -149,4 +149,37 @@ public class Drivetrain {
 
     }
 
+    public void turn(double angle, double power, String direction){
+        frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        imu.resetYaw();
+        ypr = imu.getRobotYawPitchRollAngles();
+
+        if (direction.equals("left")) { power *= -1; }
+
+        frontLeft.setPower(power);
+        frontRight.setPower(-power);
+        backLeft.setPower(power);
+        backRight.setPower(-power);
+
+        while (opMode.opModeIsActive() && Math.abs(ypr.getYaw(AngleUnit.DEGREES)) < angle) {
+            opMode.telemetry.addData("Current Angle", ypr.getYaw(AngleUnit.DEGREES));
+            opMode.telemetry.addData("Target Angle", angle );
+            opMode.telemetry.addData("Direction", direction);
+            opMode.telemetry.update();
+
+            ypr = imu.getRobotYawPitchRollAngles(); // Keep updating YPR until we reach ideal angle
+        }
+
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
+        encoders();
+
+    }
+
 }
