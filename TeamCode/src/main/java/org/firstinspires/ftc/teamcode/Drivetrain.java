@@ -75,7 +75,7 @@ public class Drivetrain {
     }
 
     public void teleop(Gamepad gamepad1, Gamepad gamepad2) {
-        double drive = ((gamepad1.left_stick_y));
+        double drive = (-1*(gamepad1.left_stick_y));
         double strafe = (-1*(gamepad1.left_stick_x));
         double rotate = (gamepad1.right_stick_x);
 
