@@ -15,9 +15,9 @@ public class Drivetrain {
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
-    private DcMotor lightning;
-    private DcMotor viperSlideLeft;
-    private DcMotor viperSlideRight;
+
+   // private DcMotor viperSlideLeft;
+    //private DcMotor viperSlideRight;
     IMU imu;
     YawPitchRollAngles ypr;
     LinearOpMode opMode;
@@ -27,9 +27,9 @@ public class Drivetrain {
         frontRight = hardwareMap.get(DcMotor.class,"frontRight");
         backLeft = hardwareMap.get(DcMotor.class,"backLeft");
         backRight = hardwareMap.get(DcMotor.class,"backRight");
-        lightning = hardwareMap.get(DcMotor.class,"lightning");
-        viperSlideLeft = hardwareMap.get(DcMotor.class,"viperSlideLeft");
-        viperSlideRight = hardwareMap.get(DcMotor.class,"viperSlideRight");
+
+//        viperSlideLeft = hardwareMap.get(DcMotor.class,"viperSlideLeft");
+//        viperSlideRight = hardwareMap.get(DcMotor.class,"viperSlideRight");
 
 
 
@@ -39,20 +39,20 @@ public class Drivetrain {
         frontRight.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.FORWARD);
-        lightning.setDirection(DcMotor.Direction.FORWARD);
+
         encoders();
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        lightning.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
 
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
-        lightning.setPower(0);
+
 
     }
 
@@ -61,27 +61,27 @@ public class Drivetrain {
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        lightning.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        viperSlideLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        viperSlideRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //viperSlideLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //viperSlideRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        lightning.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        viperSlideLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        viperSlideRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //viperSlideLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //viperSlideRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void teleop(Gamepad gamepad1, Gamepad gamepad2) {
-        double drive = (-1*(gamepad1.left_stick_y));
-        double strafe = (gamepad1.left_stick_x);
+        double drive = ((gamepad1.left_stick_y));
+        double strafe = (-1*(gamepad1.left_stick_x));
         double rotate = (gamepad1.right_stick_x);
 
-        double FL = -drive-strafe-rotate;
+        double FL = drive-strafe-rotate;
         double FR = drive-strafe-rotate;
-        double BL = -drive+strafe-rotate;
+        double BL = drive+strafe-rotate;
         double BR = drive+strafe-rotate;
 
         frontLeft.setPower(FL);
@@ -94,25 +94,25 @@ public class Drivetrain {
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        lightning.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         frontLeft.setTargetPosition(forward);
         frontRight.setTargetPosition(forward);
         backLeft.setTargetPosition(forward);
         backRight.setTargetPosition(forward);
-        lightning.setTargetPosition(forward);
+
 
         frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        lightning.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
         frontLeft.setPower(power);
         frontRight.setPower(power);
         backLeft.setPower(power);
         backRight.setPower(power);
-        lightning.setPower(power);
+
 
         while(frontLeft.isBusy()){
             opMode.telemetry.addData("frontLeft current", frontLeft.getCurrentPosition());
@@ -220,24 +220,26 @@ public class Drivetrain {
 
     }
 
-    public void slide(int POSITION, double POWER) {
-        viperSlideLeft.setTargetPosition(POSITION);
-        viperSlideRight.setTargetPosition(POSITION);
+   //public void slide(int POSITION, double POWER) {
+       // viperSlideLeft.setTargetPosition(POSITION);
+        //viperSlideRight.setTargetPosition(POSITION);
 
-        viperSlideLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        viperSlideRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //viperSlideLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //viperSlideRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        viperSlideLeft.setPower(POWER);
-        viperSlideRight.setPower(POWER);
+        //viperSlideLeft.setPower(POWER);
+        //viperSlideRight.setPower(POWER);
 
-        while (viperSlideLeft.isBusy()) {
-            opMode.telemetry.addData("viperSlideLeft current", viperSlideLeft.getCurrentPosition());
-            opMode.telemetry.addData("viperSlideLeft target", viperSlideLeft.getTargetPosition());
+        //while (viperSlideLeft.isBusy()) {
+            //opMode.telemetry.addData("viperSlideLeft current", viperSlideLeft.getCurrentPosition());
+            //opMode.telemetry.addData("viperSlideLeft target", viperSlideLeft.getTargetPosition());
 
-            opMode.telemetry.addData("viperSlideRight current", viperSlideRight.getCurrentPosition());
-            opMode.telemetry.addData("viperSlideRight target", viperSlideRight.getTargetPosition());
-            opMode.telemetry.update();
-        }
-    }
+            //opMode.telemetry.addData("viperSlideRight current", viperSlideRight.getCurrentPosition());
+            //opMode.telemetry.addData("viperSlideRight target", viperSlideRight.getTargetPosition());
+            //opMode.telemetry.update();
+        //}
+
+    //}
+
 
 }
