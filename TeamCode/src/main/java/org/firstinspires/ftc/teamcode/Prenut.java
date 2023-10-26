@@ -11,7 +11,8 @@ public class Prenut extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive()) {
-            hazel.drive(1000,0.5);
+            hazel.drive(1170,0.5);
+            break;
 
         }
     }
