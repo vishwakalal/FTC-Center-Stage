@@ -75,7 +75,7 @@ public class Drivetrain {
 
 
     }
-
+//testing
     public void encoders(){
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
