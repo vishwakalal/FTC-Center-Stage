@@ -21,8 +21,9 @@ public class Drivetrain {
     private DcMotor viperSlideRight;
     private DcMotor intake;
     private Servo launcher;
-    //private Servo arm;
-    //private Servo wrist;
+    private Servo left;
+    private Servo middle;
+    private Servo right;
     //private Servo door;
 
     IMU imu;
@@ -36,8 +37,9 @@ public class Drivetrain {
         backRight = hardwareMap.get(DcMotor.class,"backRight");
         intake = hardwareMap.get(DcMotor.class,"intake");
         launcher = hardwareMap.get(Servo.class, "launcher");
-        //arm = hardwareMap.get(Servo.class, "arm");
-        //wrist = hardwareMap.get(Servo.class, "wrist");
+        left = hardwareMap.get(Servo.class, "left");
+        middle = hardwareMap.get(Servo.class, "middle");
+        right = hardwareMap.get(Servo.class, "right");
         //door = hardwareMap.get(Servo.class, "door");
         viperSlideLeft = hardwareMap.get(DcMotor.class,"viperSlideLeft");
         viperSlideRight = hardwareMap.get(DcMotor.class,"viperSlideRight");
@@ -46,9 +48,9 @@ public class Drivetrain {
 
         this.opMode = opMode;
 
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
-        backLeft.setDirection(DcMotor.Direction.REVERSE);
+        frontLeft.setDirection(DcMotor.Direction.FORWARD);
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.FORWARD);
         viperSlideLeft.setDirection(DcMotor.Direction.REVERSE);
         viperSlideRight.setDirection(DcMotor.Direction.FORWARD);
@@ -97,32 +99,21 @@ public class Drivetrain {
     }
 
     public void teleop(Gamepad gamepad1, Gamepad gamepad2) {
+        launcher.setPosition(1);
 
         //driving
         double drive = (-1*(gamepad1.left_stick_y));
         double strafe = (gamepad1.left_stick_x);
         double rotate = (gamepad1.right_stick_x);
-        double FL = drive+strafe+rotate;
-        double FR = drive-strafe-rotate;
-        double BL = drive-strafe+rotate;
-        double BR = drive+strafe-rotate;
+        double FL = drive + strafe + rotate;
+        double FR = drive - strafe - rotate;
+        double BL = drive - strafe + rotate;
+        double BR = drive + strafe - rotate;
         frontLeft.setPower(FL);
         frontRight.setPower(FR);
         backLeft.setPower(BL);
         backRight.setPower(BR);
 
-        opMode.telemetry.addData("frontLeft current", frontLeft.getCurrentPosition());
-        opMode.telemetry.addData("frontLeft target", frontLeft.getTargetPosition());
-
-        opMode.telemetry.addData("frontRight current", frontRight.getCurrentPosition());
-        opMode.telemetry.addData("frontRight target", frontRight.getTargetPosition());
-
-        opMode.telemetry.addData("backLeft current", backLeft.getCurrentPosition());
-        opMode.telemetry.addData("backLeft target", backLeft.getTargetPosition());
-
-        opMode.telemetry.addData("backRight current", backRight.getCurrentPosition());
-        opMode.telemetry.addData("backRight target", backRight.getTargetPosition());
-        opMode.telemetry.update();
 
 
         //viper slides
@@ -137,28 +128,39 @@ public class Drivetrain {
         double eject = (-gamepad2.left_trigger);
         intake.setPower(pull + eject);
        // if (gamepad2.y) {
-            //slideVipers(4100, 1);
-       // }
-        //if (gamepad2.x) {
-            //slideVipers(2950, 1);
-
-        //}
-        //if (gamepad2.b) {
-            //slideVipers(1800, 1);
-        //}
 
         //launcher
         if(gamepad2.y){
-            launcher.setPosition(0.5);
+            launcher.setPosition(0.6);
+            wait(200);
+            launcher.setPosition(1);
         }
-        if(gamepad2.b){
-            launcher.setPosition(0);
+        //door
+        if(gamepad2.left_bumper){
+            middle.setPosition(0.45);
         }
-        //if(gamepad2.x){
-          //  arm.setPosition(0);
-        //}
+        if(gamepad2.right_bumper){
+            middle.setPosition(0.4);
+        }
+
+        if(gamepad2.dpad_up){
+            left.setPosition(0.5);
+            right.setPosition(0.5);
+        }
 
 
+
+
+
+    }
+    public void testTele(Gamepad gamepad1, Gamepad gamepad2){
+
+        opMode.telemetry.addData("door current", middle.getPosition());
+
+        opMode.telemetry.update();
+        if(gamepad2.y){
+            middle.setPosition(0.5);
+        }
 
 
     }
