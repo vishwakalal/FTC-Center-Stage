@@ -101,7 +101,8 @@ public class Drivetrain {
     public void teleop(Gamepad gamepad1, Gamepad gamepad2) {
         launcher.setPosition(1);
 
-        //driving
+        //gamepad 1
+        //drivings
         double drive = (-1*(gamepad1.left_stick_y));
         double strafe = (gamepad1.left_stick_x);
         double rotate = (gamepad1.right_stick_x);
@@ -140,12 +141,27 @@ public class Drivetrain {
             middle.setPosition(0.45);
         }
         if(gamepad2.right_bumper){
-            middle.setPosition(0.4);
+            middle.setPosition(0.35);
         }
 
-        if(gamepad2.dpad_up){
-            left.setPosition(0.5);
+        if(gamepad2.x){
+            left.setPosition((0.5 - 0.4)/5);
+            right.setPosition(0.9);
+        }
+//lifting state
+        if(gamepad2.a){
+            left.setPosition(0.5/5);
             right.setPosition(0.5);
+        }
+
+        if(gamepad2.b){
+            left.setPosition((0.5 - 0.3)/5);
+            right.setPosition(0.8);
+        }
+
+        if(gamepad2.right_stick_button){
+            left.setPosition((0.5+0.3)/5);
+            right.setPosition(0.8);
         }
 
 

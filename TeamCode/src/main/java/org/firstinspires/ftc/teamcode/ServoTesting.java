@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class ServoTesting extends LinearOpMode {
     public void runOpMode(){
         Servo left = hardwareMap.get(Servo.class, "left");
+        //Servo right = hardwareMap.get(Servo.class, "right");
         Drivetrain hazel = new Drivetrain(this, hardwareMap);
         waitForStart();
 
@@ -29,13 +30,16 @@ public class ServoTesting extends LinearOpMode {
 
             for (int i = 1; i <= 20; i++) {
                 left.setPosition(left.getPosition() + 0.05);
+                //right.setPosition(left.getPosition() + 0.05);
                 hazel.wait(1000);
-                telemetry.addData("door", left.getPosition());
+                telemetry.addData("left", left.getPosition());
+                //telemetry.addData("right", right.getPosition());
                 telemetry.update();
             }
 
 
-            telemetry.addData("door", left.getPosition());
+            telemetry.addData("left", left.getPosition());
+            //telemetry.addData("right", right.getPosition());
             telemetry.update();
 
 
