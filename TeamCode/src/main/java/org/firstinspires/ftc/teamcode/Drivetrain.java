@@ -21,7 +21,7 @@ public class Drivetrain {
     private DcMotor viperSlideRight;
     private DcMotor intake;
     private Servo launcher;
-    private Servo left;
+    //private Servo left;
     private Servo middle;
     private Servo right;
     //private Servo door;
@@ -37,7 +37,7 @@ public class Drivetrain {
         backRight = hardwareMap.get(DcMotor.class,"backRight");
         intake = hardwareMap.get(DcMotor.class,"intake");
         launcher = hardwareMap.get(Servo.class, "launcher");
-        left = hardwareMap.get(Servo.class, "left");
+        //left = hardwareMap.get(Servo.class, "left");
         middle = hardwareMap.get(Servo.class, "middle");
         right = hardwareMap.get(Servo.class, "right");
         //door = hardwareMap.get(Servo.class, "door");
@@ -145,23 +145,26 @@ public class Drivetrain {
         }
 
         if(gamepad2.x){
-            left.setPosition((0.5 - 0.4)/5);
+           //left.setPosition((0.5 - 0.4)/5);
             right.setPosition(0.9);
         }
 //lifting state
         if(gamepad2.a){
-            left.setPosition(0.5/5);
-            right.setPosition(0.5);
+            //left.setPosition(0.3);
+            right.setPosition(0.15);
+            wait(375);
+            middle.setPosition(0.35);
         }
 
         if(gamepad2.b){
-            left.setPosition((0.5 - 0.3)/5);
-            right.setPosition(0.8);
+            //left.setPosition((0.5 - 0.3)/5);
+            right.setPosition(0.42);
+
         }
 
         if(gamepad2.right_stick_button){
-            left.setPosition((0.5+0.3)/5);
-            right.setPosition(0.8);
+            //left.setPosition((0.5+0.3)/5);
+            right.setPosition(1);
         }
 
 

@@ -27,7 +27,12 @@ public class ServoTesting extends LinearOpMode {
 //                telemetry.update();
 //            }
             //door.setPosition(0.5);
-
+            if(gamepad1.a){
+                left.setPosition(left.getPosition()+0.05);
+                telemetry.addData("left", left.getPosition());
+                telemetry.update();
+            }
+/*
             for (int i = 1; i <= 20; i++) {
                 left.setPosition(left.getPosition() + 0.05);
                 //right.setPosition(left.getPosition() + 0.05);
@@ -36,6 +41,8 @@ public class ServoTesting extends LinearOpMode {
                 //telemetry.addData("right", right.getPosition());
                 telemetry.update();
             }
+
+ */
 
 
             telemetry.addData("left", left.getPosition());
